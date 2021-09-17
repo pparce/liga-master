@@ -1,0 +1,31 @@
+// ::-webkit-scrollbar {
+//     width: 5px;
+//     margin-right: 4px; /* width of the entire scrollbar */
+// }
+
+// ::-webkit-scrollbar-track {
+//     background: transparent; /* color of the tracking area */
+//     padding: 5px;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//     background-color: #922c88; /* color of the scroll thumb */
+//     border-radius: 20px; /* roundness of the scroll thumb */
+//     border: 10px solid transparent; /* creates padding around scroll thumb */
+// }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 9999px;
+    background-color: #aaaaaa;
+}
+
+.scroll-container {
+    overflow: auto;
+    overflow-x: hidden;
+}

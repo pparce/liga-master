@@ -1,0 +1,27 @@
+.toolbar-container {
+    // margin-bottom: 8px;
+    height: 50px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.title {
+    font-size: 20px;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    color: #95a6c2;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.my-breadcrumb nav ol li label {
+    margin-bottom: 0px !important;
+}
+
+.animate__animated.animate__fadeIn {
+    --animate-duration: 0.5s;
+}
