@@ -13,11 +13,13 @@ import { Team } from 'src/app/shared/models/teams';
 })
 export class TeamsListComponent implements OnInit {
     teams: Team[] = [];
+    teamsAuxSearch: Team[] = [];
     leagues: League[] = [];
     players: Player[] = [];
     loading: boolean = false;
     delTargetId: string;
     selectedTeam: Team = {};
+    searchWord: string = '';
 
     constructor(
         private connectionService: ConnectionService,
@@ -126,6 +128,12 @@ export class TeamsListComponent implements OnInit {
     selectTeam(team: Team) {
         this.selectedTeam = team;
         this.selectedTeam.players = this.players.filter(element => element.team == team.id);
+    }
+
+    filterSearch() {
+        this.teamsAuxSearch = this.teams.filter(element =>
+            element.name.toLowerCase().indexOf(this.searchWord.toLowerCase()) != -1
+            || element.league.toLowerCase().indexOf(this.searchWord.toLowerCase()) != -1);
     }
 
 }

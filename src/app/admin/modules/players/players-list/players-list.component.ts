@@ -103,7 +103,7 @@ export class PlayersListComponent implements OnInit {
 
     selectPlayer(player: Player) {
         this.selectedPlayer = player;
-    }
+    }  
 
     filterSearch() {
         this.playersAuxSearch = this.players.filter(element =>
