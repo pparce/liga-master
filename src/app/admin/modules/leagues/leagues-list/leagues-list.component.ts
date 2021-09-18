@@ -25,7 +25,7 @@ export class LeaguesListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getTeams();
-        this.getLeagues();
+
     }
 
     getTeams(): void {
@@ -41,7 +41,7 @@ export class LeaguesListComponent implements OnInit {
                             league: e['Liga'],
                         };
                     }).reverse();
-                    
+                    this.getLeagues();
                 } else {
                     this.loading = false;
                 }
