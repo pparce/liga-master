@@ -1,1 +1,7 @@
-<p>players-add works!</p>
+<app-toolbar title="Crear jugador">
+    <button class="btn btn-light mr-2" routerLink="..">Cancelar</button>
+    <button class="btn btn-primary primary" [disabled]="!canSave" (click)="addTeam()">Crear</button>
+</app-toolbar>
+<app-container>
+    <app-players-form></app-players-form>
+</app-container>

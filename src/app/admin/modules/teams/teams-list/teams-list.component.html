@@ -75,7 +75,7 @@
 </div>
 
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Vista Previa</h5>
@@ -90,6 +90,26 @@
                         <div>{{selectedTeam.name}}</div>
                         <div class="text-muted">{{selectedTeam.league}}</div>
                     </div>
+                </div>
+                <div class="d-flex flex-column mt-3">
+                    <label>Listado de jugadores</label>
+                    <app-scroll-view [heightStatic]="400">
+                        <table *ngIf="!loading && selectedTeam.players?.length" class="table">
+                            <tbody>
+                                <tr *ngFor="let item of selectedTeam.players">
+                                    <td style="width: 100%;">
+                                        <div class="d-flex">
+                                            <img [src]="item.avatar" class="image-table">
+                                            <div class="d-flex flex-column my-auto">
+                                                <div>{{item.name}}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                        
+                            </tbody>
+                        </table>
+                    </app-scroll-view>
                 </div>
             </div>
             <div class="modal-footer">

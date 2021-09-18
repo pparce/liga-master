@@ -1,3 +1,4 @@
+import { Player } from './../../../../shared/models/players';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConnectionService } from './../../../../shared/services/connection.service';
@@ -11,6 +12,7 @@ import { Team } from 'src/app/shared/models/teams';
 })
 export class TeamsListComponent implements OnInit {
     teams: Team[] = [];
+    players: Player[] = [];
     loading: boolean = false;
     delTargetId: string;
     selectedTeam: Team = {};
@@ -22,11 +24,36 @@ export class TeamsListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getTeams();
+        this.getPlayers();
+    }
+
+    getPlayers(): void {
+        this.loading = true;
+        this.connectionService.get(ConnectionService.PLAYERS).subscribe(
+            (response: any[]) => {
+                // this.loading = false;
+                if (response.length) {
+                    this.players = response.map(function (e) {
+                        return {
+                            id: e['id'],
+                            name: e['Nombre del Jugador'],
+                            avatar: e['Avatar'],
+                            team: e['teamId']
+                        };
+                    }).reverse();
+                    this.getTeams();
+                } else {
+                    this.toastService.error('Ha ocurrido un error cargando los jugadores');
+                }
+            },
+            (error: any) => {
+                this.loading = false;
+                this.toastService.error('Ha ocurrido un error cargando los jugadores');
+            }
+        );
     }
 
     getTeams(): void {
-        this.loading = true;
         this.connectionService.get(ConnectionService.TEAMS).subscribe(
             (response: any[]) => {
                 this.loading = false;
@@ -36,7 +63,7 @@ export class TeamsListComponent implements OnInit {
                             id: e['id'],
                             name: e['Nombre del equipo'],
                             logo: e['Logo del Equipo'],
-                            league: e['Liga']
+                            league: e['Liga'],
                         };
                     }).reverse();
                 } else {
@@ -69,6 +96,7 @@ export class TeamsListComponent implements OnInit {
 
     selectTeam(team: Team) {
         this.selectedTeam = team;
+        this.selectedTeam.players = this.players.filter(element => element.team == team.id);
     }
 
 }

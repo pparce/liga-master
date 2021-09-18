@@ -64,11 +64,12 @@ export class TeamsEditComponent implements OnInit, AfterViewInit {
                     this.toastService.success('El equipo se ha editado satisfactoriamente');
                     this.connectionService.back();
                 } else {
-                    this.toastService.error(response.detail);
+                    this.toastService.error('Ha ocurrido un problema editando el equipo');
+
                 }
             },
             (error: any) => {
-                this.toastService.error(error);
+                this.toastService.error('Ha ocurrido un problema editando el equipo');
             }
         );
     }

@@ -1,1 +1,7 @@
-<p>players-edit works!</p>
+<app-toolbar title="Editar jugador">
+    <button class="btn btn-light mr-2" routerLink="../..">Cancelar</button>
+    <button class="btn btn-primary primary" (click)="editPlayer()" [disabled]="!canSave">Editar</button>
+</app-toolbar>
+<app-container>
+    <app-players-form></app-players-form>
+</app-container>
