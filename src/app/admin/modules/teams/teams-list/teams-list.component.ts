@@ -1,3 +1,4 @@
+import { League } from './../../../../shared/models/league';
 import { Player } from './../../../../shared/models/players';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +13,7 @@ import { Team } from 'src/app/shared/models/teams';
 })
 export class TeamsListComponent implements OnInit {
     teams: Team[] = [];
+    leagues: League[] = [];
     players: Player[] = [];
     loading: boolean = false;
     delTargetId: string;
@@ -41,7 +43,7 @@ export class TeamsListComponent implements OnInit {
                             team: e['teamId']
                         };
                     }).reverse();
-                    this.getTeams();
+                    this.getLeagues();
                 } else {
                     this.toastService.error('Ha ocurrido un error cargando los jugadores');
                 }
@@ -53,17 +55,40 @@ export class TeamsListComponent implements OnInit {
         );
     }
 
+    getLeagues(): void {
+        this.connectionService.get(ConnectionService.LEAGUES).subscribe(
+            (response: any[]) => {
+                if (response.length) {
+                    this.leagues = response.map(function (e) {
+                        return {
+                            id: e['Identificador'],
+                            name: e['Nombre De La Liga'],
+                            image: e['Logo de la Liga'],
+                        };
+                    });
+                    this.getTeams();
+                } else {
+                    this.toastService.error('Ha ocurrido un error cargando las ligas');
+                }
+            },
+            (error: any) => {
+                this.loading = false;
+                this.toastService.error('Ha ocurrido un error cargando las ligas');
+            }
+        );
+    }
+
     getTeams(): void {
         this.connectionService.get(ConnectionService.TEAMS).subscribe(
             (response: any[]) => {
                 this.loading = false;
                 if (response.length) {
-                    this.teams = response.map(function (e) {
+                    this.teams = response.map(e => {
                         return {
                             id: e['id'],
                             name: e['Nombre del equipo'],
                             logo: e['Logo del Equipo'],
-                            league: e['Liga'],
+                            league: this.getLeagueNameById(e['Liga']),
                         };
                     }).reverse();
                 } else {
@@ -75,6 +100,10 @@ export class TeamsListComponent implements OnInit {
                 this.toastService.error('Ha ocurrido un error cargando las ligas');
             }
         );
+    }
+
+    getLeagueNameById(id: string): string {
+        return this.leagues[this.leagues.map(e => e.id).indexOf(id)].name;
     }
 
     deleteTarget(id: string) {

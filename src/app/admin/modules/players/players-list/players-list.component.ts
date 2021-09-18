@@ -1,3 +1,4 @@
+import { Team } from 'src/app/shared/models/teams';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +13,7 @@ import { Player } from 'src/app/shared/models/players';
 })
 export class PlayersListComponent implements OnInit {
     players: Player[] = [];
+    teams: Team[] = [];
     loading: boolean = false;
     delTargetId: string;
     selectedPlayer: Player = {};
@@ -23,21 +25,46 @@ export class PlayersListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getPlayers();
+        this.getTeams();
+    }
+
+    getTeams(): void {
+        this.loading = true;
+        this.connectionService.get(ConnectionService.TEAMS).subscribe(
+            (response: any[]) => {
+                // this.loading = false;
+                if (response.length) {
+                    this.teams = response.map(function (e) {
+                        return {
+                            id: e['id'],
+                            name: e['Nombre del equipo'],
+                            logo: e['Logo del Equipo'],
+                            league: e['Liga'],
+                        };
+                    }).reverse();
+                    this.getPlayers();
+                } else {
+                    this.toastService.error('Ha ocurrido un error cargando las ligas');
+                }
+            },
+            (error: any) => {
+                this.loading = false;
+                this.toastService.error('Ha ocurrido un error cargando las ligas');
+            }
+        );
     }
 
     getPlayers(): void {
-        this.loading = true;
         this.connectionService.get(ConnectionService.PLAYERS).subscribe(
             (response: any[]) => {
                 this.loading = false;
                 if (response.length) {
-                    this.players = response.map(function (e) {
+                    this.players = response.map((e) => {
                         return {
                             id: e['id'],
                             name: e['Nombre del Jugador'],
                             avatar: e['Avatar'],
-                            team: e['teamId']
+                            team: this.getTeamNameById(e['teamId']),
                         };
                     }).reverse();
                 } else {
@@ -49,6 +76,10 @@ export class PlayersListComponent implements OnInit {
                 this.toastService.error('Ha ocurrido un error cargando los jugadores');
             }
         );
+    }
+
+    getTeamNameById(id: string): string {
+        return this.teams[this.teams.map(e => e.id).indexOf(id)].name;
     }
 
     deleteTarget(id: string) {
