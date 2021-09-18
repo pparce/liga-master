@@ -44,10 +44,17 @@
     <app-empty-screen class="flex-fill" *ngIf="!loading && !teams.length" title="No hay Equipos disponibles"
         subtitle="Agregue Equipos para poder interactuar con los jugadores">
         <ng-container icon>
-            <span><i class="bi bi-collection-fill text-secondary" style="font-size: 64px;"></i></span>
+            <span><i class="bi bi-diagram-3-fill text-secondary" style="font-size: 64px;"></i></span>
         </ng-container>
         <ng-container button>
-            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear quipo</button>
+            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear equipo</button>
+        </ng-container>
+    </app-empty-screen>
+
+    <app-empty-screen class="flex-fill" *ngIf="searchWord.length && !loading && !teamsAuxSearch.length"
+        title="No se encontraron equipos" subtitle="Modifique el término para obtener un mejor resultado">
+        <ng-container icon>
+            <span><i class="bi bi-emoji-frown text-secondary" style="font-size: 64px;"></i></span>
         </ng-container>
     </app-empty-screen>
 
@@ -92,7 +99,7 @@
                         <div class="text-muted">{{selectedTeam.league}}</div>
                     </div>
                 </div>
-                <div class="d-flex flex-column mt-3">
+                <div *ngIf="selectedTeam.players?.length" class="d-flex flex-column mt-3">
                     <label>Listado de jugadores</label>
                     <app-scroll-view [heightStatic]="400">
                         <table *ngIf="!loading && selectedTeam.players?.length" class="table">

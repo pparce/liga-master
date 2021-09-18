@@ -45,13 +45,11 @@ export class PlayersListComponent implements OnInit {
                         };
                     }).reverse();
                     this.getPlayers();
-                } else {
-                    this.toastService.error('Ha ocurrido un error cargando las ligas');
                 }
             },
             (error: any) => {
                 this.loading = false;
-                this.toastService.error('Ha ocurrido un error cargando las ligas');
+                this.toastService.error('Ha ocurrido un error cargando los equipos');
             }
         );
     }
@@ -69,8 +67,6 @@ export class PlayersListComponent implements OnInit {
                             team: this.getTeamNameById(e['teamId']),
                         };
                     }).reverse();
-                } else {
-                    this.toastService.error('Ha ocurrido un error cargando los jugadores');
                 }
             },
             (error: any) => {

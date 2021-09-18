@@ -1,9 +1,9 @@
 <app-toolbar title="Jugadores" subtitle="Listado de jugadores" icon="bi-file-person-fill">
     <button class="btn btn-outline-primary" routerLink="add">
-        Agregar jugador
+        Crear jugador
     </button>
 </app-toolbar>
-<div class="d-flex justify-content-end search-input">
+<div *ngIf="players.length" class="d-flex justify-content-end search-input">
     <div class="form-group">
         <input [(ngModel)]="searchWord" name="search" type="text" class="form-control" placeholder="Buscar..."
             (ngModelChange)="filterSearch()">
@@ -41,13 +41,20 @@
         <app-loading *ngIf="loading"></app-loading>
     </div>
 
-    <app-empty-screen class="flex-fill" *ngIf="!loading && !players.length" title="No hay Equipos disponibles"
-        subtitle="Agregue Equipos para poder interactuar con los jugadores">
+    <app-empty-screen class="flex-fill" *ngIf="!loading && !players.length" title="No hay Jugadores disponibles"
+        subtitle="Agregue Jugadores para poder agregarlos a los equipos">
         <ng-container icon>
-            <span><i class="bi bi-collection-fill text-secondary" style="font-size: 64px;"></i></span>
+            <span><i class="bi bi-file-person-fill text-secondary" style="font-size: 64px;"></i></span>
         </ng-container>
         <ng-container button>
-            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear quipo</button>
+            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear jugador</button>
+        </ng-container>
+    </app-empty-screen>
+
+    <app-empty-screen class="flex-fill" *ngIf="searchWord.length && !loading && !playersAuxSearch.length"
+        title="No se encontraron jugadores" subtitle="Modifique el término para obtener un mejor resultado">
+        <ng-container icon>
+            <span><i class="bi bi-emoji-frown text-secondary" style="font-size: 64px;"></i></span>
         </ng-container>
     </app-empty-screen>
 

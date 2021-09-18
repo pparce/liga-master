@@ -29,6 +29,7 @@ export class TeamsListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getPlayers();
+        this.getLeagues();
     }
 
     getPlayers(): void {
@@ -45,9 +46,9 @@ export class TeamsListComponent implements OnInit {
                             team: e['teamId']
                         };
                     }).reverse();
-                    this.getLeagues();
+
                 } else {
-                    this.toastService.error('Ha ocurrido un error cargando los jugadores');
+                    this.loading = false;
                 }
             },
             (error: any) => {
@@ -69,8 +70,8 @@ export class TeamsListComponent implements OnInit {
                         };
                     });
                     this.getTeams();
-                } else {
-                    this.toastService.error('Ha ocurrido un error cargando las ligas');
+                } else{
+                    this.loading = false;
                 }
             },
             (error: any) => {
@@ -93,13 +94,11 @@ export class TeamsListComponent implements OnInit {
                             league: this.getLeagueNameById(e['Liga']),
                         };
                     }).reverse();
-                } else {
-                    this.toastService.error('Ha ocurrido un error cargando las ligas');
                 }
             },
             (error: any) => {
                 this.loading = false;
-                this.toastService.error('Ha ocurrido un error cargando las ligas');
+                this.toastService.error('Ha ocurrido un error cargando los equipos');
             }
         );
     }
