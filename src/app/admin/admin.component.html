@@ -1,8 +1,21 @@
 <div class="admin-container d-flex flex-fill h-100">
-    <app-sidebar></app-sidebar>
+    <nav id="sidebar">
+        <app-sidebar></app-sidebar>
+    </nav>
     <div class="modules-container flex-fill">
         <div class="flex-fill">
             <router-outlet></router-outlet>
         </div>
+    </div>
+    <div class="bottom-menu d-flex">
+        <button type="button" class="btn flex-fill" routerLink='leagues' [routerLinkActive]="['btn-primary']">
+            <span><i class="bi bi-collection-fill"></i></span>Ligas
+        </button>
+        <button type="button" class="btn flex-fill" routerLink='teams' [routerLinkActive]="['btn-primary']">
+            <span><i class="bi bi-diagram-3-fill"></i></span>Equipos
+        </button>
+        <button type="button" class="btn flex-fill" routerLink='players' [routerLinkActive]="['btn-primary']">
+            <span><i class="bi bi-file-person-fill"></i></span>Jugadores
+        </button>
     </div>
 </div>

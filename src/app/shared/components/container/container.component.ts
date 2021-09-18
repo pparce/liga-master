@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ContainerComponent implements OnInit {
 
-    @Input() heigth: number = 195;
+    @Input() heigth: number = 170;
 
     constructor() { }
 

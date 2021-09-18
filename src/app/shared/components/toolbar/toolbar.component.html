@@ -4,7 +4,11 @@
             <span><i class="bi bi-arrow-left"></i></span>
         </button>
         <div class="d-flex align-items-center">
-            <span *ngIf="icon"><i [class]="'mr-3 fa ' + icon" style="font-size: 24px !important;"></i></span>
+            <!-- <button type="button" class="btn btn-light menu-icon mr-3">
+                <span><i class="bi bi-list" style="font-size: 24px !important;"></i></span>
+            </button> -->
+            <span class="toolbar-icon" *ngIf="icon"><i [class]="'mr-3 fa ' + icon"
+                    style="font-size: 24px !important;"></i></span>
             <div class="d-flex flex-column">
                 <h1 class="title mr-3">{{ title }}</h1>
                 <div class="subtitle">{{ subtitle }}</div>

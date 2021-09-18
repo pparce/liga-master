@@ -6,7 +6,7 @@ import { Component, OnInit, HostListener, Input } from '@angular/core';
     styleUrls: ['./scroll-view.component.scss']
 })
 export class ScrollViewComponent implements OnInit {
-    @Input() heightStatic = 195;
+    @Input() heightStatic = 170;
     public screenWidth: any;
     public screenHeight: any;
     // heightStatic = 195;

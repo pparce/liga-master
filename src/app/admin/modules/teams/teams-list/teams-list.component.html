@@ -13,7 +13,7 @@
     <div class="table-container" [ngClass]="{'loading-data': loading}">
         <table *ngIf="!loading && teams.length" class="table table-hover">
             <tbody>
-                <tr *ngFor="let item of searchWord.length ? teamsAuxSearch : teams">
+                <tr class="table-item" *ngFor="let item of searchWord.length ? teamsAuxSearch : teams">
                     <td style="width: 100%;" data-toggle="modal" data-target="#viewModal" (click)="selectTeam(item)">
                         <div class="d-flex">
                             <img [src]="item.logo" class="image-table">
