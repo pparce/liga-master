@@ -1,0 +1,100 @@
+<app-toolbar title="Jugadores" subtitle="Listado de jugadores" icon="bi-file-person-fill">
+    <button class="btn btn-outline-primary" routerLink="add">
+        Agregar equipo
+    </button>
+</app-toolbar>
+<div class="d-flex justify-content-end search-input">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar...">
+    </div>
+</div>
+<app-container>
+    <div class="table-container" [ngClass]="{'loading-data': loading}">
+        <table *ngIf="!loading && players.length" class="table table-hover">
+            <tbody>
+                <tr *ngFor="let item of players">
+                    <td style="width: 100%;" data-toggle="modal" data-target="#viewModal" (click)="selectPlayer(item)">
+                        <div class="d-flex">
+                            <img [src]="item.avatar" class="image-table">
+                            <div class="d-flex flex-column my-auto">
+                                <div>{{item.name}}</div>
+                                <div class="text-muted">{{item.team}}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="vertical-align:middle">
+                        <div class="d-flex">
+                            <button class="btn btn-link my-auto" routerLink="edit/{{item.id}}">
+                                <span><i class="bi bi-pencil-square"></i></span>
+                            </button>
+                            <button class="btn btn-link  my-auto" data-toggle="modal" data-target="#deleteModal"
+                                (click)="deleteTarget(item.id)">
+                                <span><i class="bi bi-archive-fill text-danger"></i></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+
+    <app-empty-screen class="flex-fill" *ngIf="!loading && !players.length" title="No hay Equipos disponibles"
+        subtitle="Agregue Equipos para poder interactuar con los jugadores">
+        <ng-container icon>
+            <span><i class="bi bi-collection-fill text-secondary" style="font-size: 64px;"></i></span>
+        </ng-container>
+        <ng-container button>
+            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear quipo</button>
+        </ng-container>
+    </app-empty-screen>
+
+</app-container>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Equipo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de querer eliminar este equipo?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="deleteLeague()"
+                    data-dismiss="modal">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vista Previa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <img class="image-view-modal" [src]="selectedPlayer.avatar" alt="">
+                    <div class="d-flex flex-column my-auto">
+                        <div>{{selectedPlayer.name}}</div>
+                        <div class="text-muted">{{selectedPlayer.team}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
