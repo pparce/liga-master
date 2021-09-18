@@ -1,0 +1,7 @@
+<app-toolbar title="Crear equipo">
+    <button class="btn btn-light mr-2" routerLink="..">Cancelar</button>
+    <button class="btn btn-primary primary" [disabled]="!canSave" (click)="addTeam()">Adicionar</button>
+</app-toolbar>
+<app-container>
+    <app-teams-form></app-teams-form>
+</app-container>

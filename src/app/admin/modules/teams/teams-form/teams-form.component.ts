@@ -1,34 +1,36 @@
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConnectionService } from './../../../../shared/services/connection.service';
 import { League } from './../../../../shared/models/league';
-import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Team } from './../../../../shared/models/teams';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'app-leagues-list',
-    templateUrl: './leagues-list.component.html',
-    styleUrls: ['./leagues-list.component.scss']
+    selector: 'app-teams-form',
+    templateUrl: './teams-form.component.html',
+    styleUrls: ['./teams-form.component.scss']
 })
-export class LeaguesListComponent implements OnInit {
+export class TeamsFormComponent implements OnInit {
+    @ViewChild('form', { static: false }) form: NgForm;
+    team: Team = {};
     leagues: League[] = [];
-    loading: boolean = false;
-    delTargetId: string;
 
     constructor(
         private connectionService: ConnectionService,
         private toastService: ToastrService,
         private router: Router,
-    ) { }
+    ) {
+
+    }
 
     ngOnInit(): void {
         this.getLeagues();
     }
 
     getLeagues(): void {
-        this.loading = true;
         this.connectionService.get(ConnectionService.LEAGUES).subscribe(
             (response: any[]) => {
-                this.loading = false;
                 if (response.length) {
                     this.leagues = response.map(function (e) {
                         return {
@@ -42,30 +44,18 @@ export class LeaguesListComponent implements OnInit {
                 }
             },
             (error: any) => {
-                this.loading = false;
                 this.toastService.error('Ha ocurrido un error cargando las ligas');
             }
         );
     }
 
-    deleteTarget(id: string) {
-        this.delTargetId = id;
+    buildJSON(): object {
+        return {
+            "Nombre del equipo": this.team.name,
+            "Logo del Equipo": "https://robohash.org/velitfugitiure.png?size=250x250&set=set1",
+            "Liga": this.team.league
+        }
     }
 
-    deleteLeague(): void {
-        let url = ConnectionService.LEAGUES + this.delTargetId;
-        this.connectionService.delete(url).subscribe(
-            (response: any) => {
-                if (response.id) {
-                } else {
-                    this.toastService.error(response.detail);
-                }
-                this.getLeagues();
-            },
-            (error: any) => {
-                this.toastService.error(error);
-            }
-        );
-    }
 
 }

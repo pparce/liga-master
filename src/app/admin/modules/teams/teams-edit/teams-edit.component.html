@@ -1,0 +1,7 @@
+<app-toolbar title="Editar Equipo">
+    <button class="btn btn-light mr-2" routerLink="../..">Cancelar</button>
+    <button class="btn btn-primary primary" (click)="editTeam()" [disabled]="!canSave">Editar</button>
+</app-toolbar>
+<app-container>
+    <app-teams-form></app-teams-form>
+</app-container>

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
     selector: 'app-scroll-view',
@@ -6,10 +6,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
     styleUrls: ['./scroll-view.component.scss']
 })
 export class ScrollViewComponent implements OnInit {
-
+    @Input() heightStatic = 195;
     public screenWidth: any;
     public screenHeight: any;
-    heightStatic = 125;
+    // heightStatic = 195;
 
 
     constructor() { }

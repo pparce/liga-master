@@ -1,4 +1,4 @@
-$primary: #922c88;
+$primary: #1976d2;
 $btn-border-radius: 8px;
 $btn-font-size: 12px;
 @import "~bootstrap/scss/bootstrap";
@@ -6,4 +6,17 @@ $btn-font-size: 12px;
 html,
 body {
     height: 100%;
+}
+
+.divider {
+    background-color: #d7d7d7;
+    height: 1px;
+}
+
+.table-container {
+    position: relative;
+}
+
+.table-container.loading-data {
+    min-height: 250px;
 }

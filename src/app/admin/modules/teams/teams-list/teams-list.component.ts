@@ -1,18 +1,19 @@
 import { Router } from '@angular/router';
-import { ConnectionService } from './../../../../shared/services/connection.service';
-import { League } from './../../../../shared/models/league';
-import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ConnectionService } from './../../../../shared/services/connection.service';
+import { Component, OnInit } from '@angular/core';
+import { Team } from 'src/app/shared/models/teams';
 
 @Component({
-    selector: 'app-leagues-list',
-    templateUrl: './leagues-list.component.html',
-    styleUrls: ['./leagues-list.component.scss']
+    selector: 'app-teams-list',
+    templateUrl: './teams-list.component.html',
+    styleUrls: ['./teams-list.component.scss']
 })
-export class LeaguesListComponent implements OnInit {
-    leagues: League[] = [];
+export class TeamsListComponent implements OnInit {
+    teams: Team[] = [];
     loading: boolean = false;
     delTargetId: string;
+    selectedTeam: Team = {};
 
     constructor(
         private connectionService: ConnectionService,
@@ -21,22 +22,23 @@ export class LeaguesListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getLeagues();
+        this.getTeams();
     }
 
-    getLeagues(): void {
+    getTeams(): void {
         this.loading = true;
-        this.connectionService.get(ConnectionService.LEAGUES).subscribe(
+        this.connectionService.get(ConnectionService.TEAMS).subscribe(
             (response: any[]) => {
                 this.loading = false;
                 if (response.length) {
-                    this.leagues = response.map(function (e) {
+                    this.teams = response.map(function (e) {
                         return {
-                            id: e['Identificador'],
-                            name: e['Nombre De La Liga'],
-                            image: e['Logo de la Liga'],
+                            id: e['id'],
+                            name: e['Nombre del equipo'],
+                            logo: e['Logo del Equipo'],
+                            league: e['Liga']
                         };
-                    });
+                    }).reverse();
                 } else {
                     this.toastService.error('Ha ocurrido un error cargando las ligas');
                 }
@@ -53,19 +55,20 @@ export class LeaguesListComponent implements OnInit {
     }
 
     deleteLeague(): void {
-        let url = ConnectionService.LEAGUES + this.delTargetId;
+        let url = ConnectionService.TEAMS + this.delTargetId;
         this.connectionService.delete(url).subscribe(
             (response: any) => {
-                if (response.id) {
-                } else {
-                    this.toastService.error(response.detail);
-                }
-                this.getLeagues();
+                this.toastService.success('El equipo se ha eliminado satisfactoriamente');
+                this.getTeams();
             },
             (error: any) => {
                 this.toastService.error(error);
             }
         );
+    }
+
+    selectTeam(team: Team) {
+        this.selectedTeam = team;
     }
 
 }

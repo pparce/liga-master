@@ -1,1 +1,8 @@
-<p>leagues-add works!</p>
+<app-toolbar title="Adicionar Liga">
+    <button class="btn btn-light mr-2" routerLink="..">Cancelar</button>
+    <button class="btn btn-primary primary" (click)="addLeague()">Adicionar</button>
+</app-toolbar>
+<app-container>
+    <app-leagues-form></app-leagues-form>
+</app-container>
+

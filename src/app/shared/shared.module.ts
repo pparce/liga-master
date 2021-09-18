@@ -1,3 +1,4 @@
+import { LoadingComponent } from './components/loading/loading.component';
 import { ScrollViewComponent } from './components/scroll-view/scroll-view.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -13,12 +14,14 @@ import { CommonModule } from '@angular/common';
         ToolbarComponent,
         ContainerComponent,
         ScrollViewComponent,
+        LoadingComponent,
     ],
     exports: [
         EmptyScreenComponent,
         ToolbarComponent,
         ContainerComponent,
-        ScrollViewComponent
+        ScrollViewComponent,
+        LoadingComponent,
     ],
     imports: [
         CommonModule

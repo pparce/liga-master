@@ -1,1 +1,56 @@
-<app-toolbar title="Ligas" subtitle="Listado de ligas disponibles" icon="bi-collection-fill"></app-toolbar>
+<app-toolbar title="Ligas" subtitle="Listado de ligas disponibles" icon="bi-collection-fill">
+
+</app-toolbar>
+<!-- <div class="d-flex search-input">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar...">
+    </div>
+</div> -->
+<app-container [heigth]="165">
+    <div class="table-container h-100" [ngClass]="{'loading-data': loading}">
+        <div class="d-flex h-100 flex-wrap">
+            <div class="d-flex flex-column justify-content-center item-league" *ngFor="let item of leagues">
+                <img class="mx-auto" [src]="item.image" alt="">
+                <h5 class="mt-3 text-center">{{item.name}}</h5>
+            </div>
+        </div>
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+
+    <!-- <app-empty-screen class="flex-fill" *ngIf="!loading && !leagues.length" title="No hay ligas disponibles"
+        subtitle="Agregue Ligas para para interactuar con ellas">
+        <ng-container icon>
+            <span><i class="bi bi-collection-fill text-secondary" style="font-size: 64px;"></i></span>
+        </ng-container>
+        <ng-container button>
+            <button type="button" routerLink="add/" class="btn btn-outline-primary">Crear Liga</button>
+        </ng-container>
+    </app-empty-screen> -->
+
+</app-container>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Liga</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de querer eliminar esta liga?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="deleteLeague()"
+                    data-dismiss="modal">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

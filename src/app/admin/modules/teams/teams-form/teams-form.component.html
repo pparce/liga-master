@@ -1,0 +1,22 @@
+<form #form="ngForm" class="w-50">
+    <div class="d-flex flex-column flex-fill">
+        <div class="form-group flex-fill">
+            <label>Nombre</label>
+            <input [(ngModel)]="team.name" name="name" type="text" class="form-control" required>
+            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group flex-fill">
+            <label>Descripción</label>
+            <textarea [(ngModel)]="team.description" name="description" class="form-control" rows="3"
+                required></textarea>
+            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group flex-fill">
+            <label>Liga</label>
+            <select [(ngModel)]="team.league" name="liga" class="form-control" required>
+                <option value="" selected>...</option>
+                <option [ngValue]="item.id" *ngFor="let item of leagues">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+</form>

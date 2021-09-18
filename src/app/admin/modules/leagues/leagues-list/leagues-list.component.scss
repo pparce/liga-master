@@ -1,0 +1,27 @@
+.image-table {
+    height: 50px;
+    width: 50px;
+    border-radius: 8px;
+}
+
+.search-input {
+    margin-left: 16px;
+}
+
+.item-league {
+    padding: 16px;
+    height: 200px;
+    width: 200px;
+    background-color: #e1e9fb;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+}
+
+.item-league img {
+    object-fit: cover;
+    height: 70px;
+    width: 70px;
+    background-color: white;
+    border-radius: 500px;
+}

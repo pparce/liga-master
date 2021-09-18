@@ -1,1 +1,7 @@
-<p>leagues-edit works!</p>
+<app-toolbar title="Editar Liga">
+    <button class="btn btn-light mr-2" routerLink="../..">Cancelar</button>
+    <button class="btn btn-primary primary" (click)="editLeague()">Editar</button>
+</app-toolbar>
+<app-container>
+    <app-leagues-form></app-leagues-form>
+</app-container>
