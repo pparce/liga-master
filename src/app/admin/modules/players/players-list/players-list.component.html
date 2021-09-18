@@ -5,14 +5,15 @@
 </app-toolbar>
 <div class="d-flex justify-content-end search-input">
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar...">
+        <input [(ngModel)]="searchWord" name="search" type="text" class="form-control" placeholder="Buscar..."
+            (ngModelChange)="filterSearch()">
     </div>
 </div>
 <app-container>
     <div class="table-container" [ngClass]="{'loading-data': loading}">
         <table *ngIf="!loading && players.length" class="table table-hover">
             <tbody>
-                <tr *ngFor="let item of players">
+                <tr *ngFor="let item of searchWord.length ? playersAuxSearch : players">
                     <td style="width: 100%;" data-toggle="modal" data-target="#viewModal" (click)="selectPlayer(item)">
                         <div class="d-flex">
                             <img [src]="item.avatar" class="image-table">

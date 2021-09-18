@@ -13,10 +13,12 @@ import { Player } from 'src/app/shared/models/players';
 })
 export class PlayersListComponent implements OnInit {
     players: Player[] = [];
+    playersAuxSearch: Player[] = [];
     teams: Team[] = [];
     loading: boolean = false;
     delTargetId: string;
     selectedPlayer: Player = {};
+    searchWord: string = '';
 
     constructor(
         private connectionService: ConnectionService,
@@ -101,6 +103,12 @@ export class PlayersListComponent implements OnInit {
 
     selectPlayer(player: Player) {
         this.selectedPlayer = player;
+    }
+
+    filterSearch() {
+        this.playersAuxSearch = this.players.filter(element =>
+            element.name.toLowerCase().indexOf(this.searchWord.toLowerCase()) != -1
+            || element.team.toLowerCase().indexOf(this.searchWord.toLowerCase()) != -1);
     }
 
 }

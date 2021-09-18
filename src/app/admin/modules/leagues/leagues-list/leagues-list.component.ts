@@ -3,6 +3,7 @@ import { ConnectionService } from './../../../../shared/services/connection.serv
 import { League } from './../../../../shared/models/league';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Team } from 'src/app/shared/models/teams';
 
 @Component({
     selector: 'app-leagues-list',
@@ -11,8 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LeaguesListComponent implements OnInit {
     leagues: League[] = [];
+    teams: Team[] = [];
     loading: boolean = false;
     delTargetId: string;
+    selectedLeague: League = {};
 
     constructor(
         private connectionService: ConnectionService,
@@ -21,11 +24,35 @@ export class LeaguesListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getLeagues();
+        this.getTeams();
+    }
+
+    getTeams(): void {
+        this.loading = true;
+        this.connectionService.get(ConnectionService.TEAMS).subscribe(
+            (response: any[]) => {
+                if (response.length) {
+                    this.teams = response.map(e => {
+                        return {
+                            id: e['id'],
+                            name: e['Nombre del equipo'],
+                            logo: e['Logo del Equipo'],
+                            league: e['Liga'],
+                        };
+                    }).reverse();
+                    this.getLeagues();
+                } else {
+                    this.toastService.error('Ha ocurrido un error cargando las ligas');
+                }
+            },
+            (error: any) => {
+                this.loading = false;
+                this.toastService.error('Ha ocurrido un error cargando las ligas');
+            }
+        );
     }
 
     getLeagues(): void {
-        this.loading = true;
         this.connectionService.get(ConnectionService.LEAGUES).subscribe(
             (response: any[]) => {
                 this.loading = false;
@@ -66,6 +93,11 @@ export class LeaguesListComponent implements OnInit {
                 this.toastService.error(error);
             }
         );
+    }
+
+    selectLeague(league: League): void {
+        this.selectedLeague = league;
+        this.selectedLeague.teams = this.teams.filter(element => element.league == league.id);
     }
 
 }
