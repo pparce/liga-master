@@ -29,12 +29,20 @@ body {
         margin-left: 0px;
         border-radius: 25px;
     }
+
+    .form-container {
+        width: 50% !important;
+    }
 }
 
 @media (min-width: 1024px) {
     .search-input {
         margin-right: 16px;
         align-items: flex-end;
+    }
+
+    .form-container {
+        width: 50% !important;
     }
 }
 
@@ -50,6 +58,10 @@ body {
     .search-input {
         margin-right: 16px;
         align-items: flex-end;
+    }
+
+    .form-container {
+        width: 50% !important;
     }
 }
 

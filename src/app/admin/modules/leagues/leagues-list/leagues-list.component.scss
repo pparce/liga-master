@@ -1,7 +1,9 @@
 .image-table {
     height: 50px;
     width: 50px;
-    border-radius: 8px;
+    border-radius: 5000px;
+    object-fit: cover;
+    margin-right: 16px;
 }
 
 .image-view-modal {

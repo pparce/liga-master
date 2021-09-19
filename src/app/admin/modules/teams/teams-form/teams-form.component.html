@@ -1,21 +1,36 @@
 <form #form="ngForm" class="form-container">
     <div class="d-flex flex-column flex-fill">
-        <div class="form-group flex-fill">
-            <label>Nombre</label>
-            <input [(ngModel)]="team.name" name="name" type="text" class="form-control" required>
-            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        <div class="d-flex" (click)="fileInput.click()"
+            [ngClass]="{'uploadfilecontainer': imageFile || team.logo,'uploadfilecontainer-border':!imageFile && !team.logo}"
+            appDragDrop (onFileDropped)="onImagesSelected($event)">
+            <input hidden type="file" accept="image/*" #fileInput (change)="onImagesSelected($event)" multiple>
+            <div *ngIf="!imageFile && !team.logo"
+                class="d-flex flex-column justify-content-center  mx-auto">
+                <span class="d-flex mx-auto"><i class="icon-image bi bi-image"></i></span>
+            </div>
+            <div *ngIf="imageFile">
+                <img class="image-file" [src]="imageFile" alt="Image Source" width="100px">
+            </div>
+            <div *ngIf="team.logo && !imageFile">
+                <img class="image-file" [src]="team.logo" alt="Image Source" width="100px">
+            </div>
         </div>
-        <div class="form-group flex-fill">
-            <label>Descripción</label>
-            <textarea [(ngModel)]="team.description" name="description" class="form-control" rows="3"></textarea>
-            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-        </div>
-        <div class="form-group flex-fill">
-            <label>Liga</label>
-            <select [(ngModel)]="team.league" name="liga" class="form-control" required>
-                <option value="" selected>...</option>
-                <option [ngValue]="item.id" *ngFor="let item of leagues">{{item.name}}</option>
-            </select>
-        </div>
+    </div>
+    <div class="form-group flex-fill">
+        <label>Nombre</label>
+        <input [(ngModel)]="team.name" name="name" type="text" class="form-control" required>
+        <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+    </div>
+    <div class="form-group flex-fill">
+        <label>Descripción</label>
+        <textarea [(ngModel)]="team.description" name="description" class="form-control" rows="3"></textarea>
+        <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+    </div>
+    <div class="form-group flex-fill">
+        <label>Liga</label>
+        <select [(ngModel)]="team.league" name="liga" class="form-control" required>
+            <option value="" selected>...</option>
+            <option [ngValue]="item.id" *ngFor="let item of leagues">{{item.name}}</option>
+        </select>
     </div>
 </form>

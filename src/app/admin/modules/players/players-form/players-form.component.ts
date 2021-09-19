@@ -14,6 +14,7 @@ export class PlayersFormComponent implements OnInit {
     @ViewChild('form', { static: false }) form: NgForm;
     player: Player = {};
     teams: Team[] = [];
+    imageFile: any;
 
     constructor(
         private connectionService: ConnectionService,
@@ -51,10 +52,19 @@ export class PlayersFormComponent implements OnInit {
     buildJSON(): object {
         return {
             "Nombre del Jugador": this.player.name,
-            "Avatar": "https://robohash.org/velitfugitiure.png?size=250x250&set=set1",
+            "Avatar": this.imageFile,
             "teamId": this.player.team
         }
     }
 
+    onImagesSelected(event: any): void {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            // console.log(reader.result);
+            this.imageFile = reader.result;
+        };
+    }
 
 }

@@ -4,6 +4,7 @@
     border-radius: 500px;
     background-color: #e0e4ed;
     margin-right: 16px;
+    object-fit: cover;
 }
 .image-view-modal {
     height: 100px;
@@ -14,9 +15,7 @@
 }
 
 @media (min-width: 1024px) {
-    
 }
 
 @media (max-width: 768px) {
-    
 }

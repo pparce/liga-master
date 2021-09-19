@@ -1,5 +1,19 @@
 <form #form="ngForm" class="form-container">
     <div class="d-flex flex-column flex-fill">
+        <div class="d-flex" (click)="fileInput.click()"
+            [ngClass]="{'uploadfilecontainer': imageFile || player.avatar,'uploadfilecontainer-border':!imageFile && !player.avatar}"
+            appDragDrop (onFileDropped)="onImagesSelected($event)">
+            <input hidden type="file" accept="image/*" #fileInput (change)="onImagesSelected($event)" multiple>
+            <div *ngIf="!imageFile && !player.avatar" class="d-flex flex-column justify-content-center  mx-auto">
+                <span class="d-flex mx-auto"><i class="icon-image bi bi-person  "></i></span>
+            </div>
+            <div *ngIf="imageFile">
+                <img class="image-file" [src]="imageFile" alt="Image Source" width="100px">
+            </div>
+            <div *ngIf="player.avatar && !imageFile">
+                <img class="image-file" [src]="player.avatar" alt="Image Source" width="100px">
+            </div>
+        </div>
         <div class="form-group flex-fill">
             <label>Nombre</label>
             <input [(ngModel)]="player.name" name="name" type="text" class="form-control" required>
@@ -7,8 +21,7 @@
         </div>
         <div class="form-group flex-fill">
             <label>Descripción</label>
-            <textarea [(ngModel)]="player.description" name="description" class="form-control" rows="3"
-                ></textarea>
+            <textarea [(ngModel)]="player.description" name="description" class="form-control" rows="3"></textarea>
             <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
         <div class="form-group flex-fill">
