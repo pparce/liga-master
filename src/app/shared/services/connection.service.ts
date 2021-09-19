@@ -35,11 +35,11 @@ export class ConnectionService implements HttpInterceptor {
         });
         return next.handle(req).pipe(
             tap((event: HttpEvent<any>) => {
-                
+
                 if (event instanceof HttpResponse) {
                     this.spinner.hide();
                 }
-                
+
             }),
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = '';
@@ -60,22 +60,19 @@ export class ConnectionService implements HttpInterceptor {
     public get(url: string): Observable<any> {
         // this.spinner.show();
         let urlAux: string = environment.apiServer + url;
-        return this.http.get(urlAux, {
-        });
+        return this.http.get(urlAux, { observe: 'response' });
     }
 
     public post(url: string, data: any): Observable<any> {
         // this.spinner.show();
         let urlAux: string = environment.apiServer + url;
-        return this.http.post(urlAux, data, {
-        });
+        return this.http.post(urlAux, data);
     }
 
     public put(url: string, data: any): Observable<any> {
         // this.spinner.show();
         let urlAux: string = environment.apiServer + url;
-        return this.http.put(urlAux, data, {
-        });
+        return this.http.put(urlAux, data);
     }
 
     public delete(url: string): Observable<any> {

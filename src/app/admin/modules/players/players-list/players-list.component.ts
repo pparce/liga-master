@@ -33,10 +33,10 @@ export class PlayersListComponent implements OnInit {
     getTeams(): void {
         this.loading = true;
         this.connectionService.get(ConnectionService.TEAMS).subscribe(
-            (response: any[]) => {
+            (response: any) => {
                 // this.loading = false;
-                if (response.length) {
-                    this.teams = response.map(function (e) {
+                if (response.body.length) {
+                    this.teams = response.body.map(function (e) {
                         return {
                             id: e['id'],
                             name: e['Nombre del equipo'],
@@ -56,10 +56,10 @@ export class PlayersListComponent implements OnInit {
 
     getPlayers(): void {
         this.connectionService.get(ConnectionService.PLAYERS).subscribe(
-            (response: any[]) => {
+            (response: any) => {
                 this.loading = false;
-                if (response.length) {
-                    this.players = response.map((e) => {
+                if (response.body.length) {
+                    this.players = response.body.map((e) => {
                         return {
                             id: e['id'],
                             name: e['Nombre del Jugador'],

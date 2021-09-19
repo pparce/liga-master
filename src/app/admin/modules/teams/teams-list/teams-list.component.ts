@@ -35,10 +35,10 @@ export class TeamsListComponent implements OnInit {
     getPlayers(): void {
         this.loading = true;
         this.connectionService.get(ConnectionService.PLAYERS).subscribe(
-            (response: any[]) => {
+            (response: any) => {
                 // this.loading = false;
-                if (response.length) {
-                    this.players = response.map(function (e) {
+                if (response.body.length) {
+                    this.players = response.body.map(function (e) {
                         return {
                             id: e['id'],
                             name: e['Nombre del Jugador'],
@@ -60,9 +60,9 @@ export class TeamsListComponent implements OnInit {
 
     getLeagues(): void {
         this.connectionService.get(ConnectionService.LEAGUES).subscribe(
-            (response: any[]) => {
-                if (response.length) {
-                    this.leagues = response.map(function (e) {
+            (response: any) => {
+                if (response.body.length) {
+                    this.leagues = response.body.map(function (e) {
                         return {
                             id: e['Identificador'],
                             name: e['Nombre De La Liga'],
@@ -83,10 +83,10 @@ export class TeamsListComponent implements OnInit {
 
     getTeams(): void {
         this.connectionService.get(ConnectionService.TEAMS).subscribe(
-            (response: any[]) => {
+            (response: any) => {
                 this.loading = false;
-                if (response.length) {
-                    this.teams = response.map(e => {
+                if (response.body.length) {
+                    this.teams = response.body.map(e => {
                         return {
                             id: e['id'],
                             name: e['Nombre del equipo'],
